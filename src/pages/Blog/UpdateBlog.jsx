@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SVG from "../../components/SVG/SVG";
 import { getAllCategories } from "../../features/category/categorySlice";
 import { getSingleBlog, updateBlog } from "../../features/blogs/blogSlice";
+import Editor from "../../components/Editor/Editor";
 
 const UpdateBlog = () => {
   const [tags, setTags] = useState([]);
@@ -118,10 +119,13 @@ const UpdateBlog = () => {
               >
                 Description
               </label>
-              <textarea
-                type='text'
-                name='description'
+              <Editor
                 value={description}
+                onChange={(newValue) => setDescription(newValue)}
+              />
+              {/* <textarea
+                type='text'
+                 value={description}
                 cols={30}
                 rows={10}
 
@@ -129,7 +133,7 @@ const UpdateBlog = () => {
                 id='description'
                 className='bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full'
                 placeholder='Add a description'
-              />
+              /> */}
             </div>
 
             <div>
@@ -147,7 +151,7 @@ const UpdateBlog = () => {
                 onChange={(e) => setCategory(e.target.value)}
                 className='bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full'
               >
-                <option value='' >Select a category</option>
+                <option value=''>Select a category</option>
                 {categories?.map((category) => (
                   <option key={category?._id} value={category._id}>
                     {category?.name}

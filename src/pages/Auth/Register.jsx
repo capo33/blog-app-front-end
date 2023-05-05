@@ -81,7 +81,7 @@ const Register = () => {
             name='answer'
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-            placeholder='Add a security question'
+            placeholder='Add a security answer'
           />
 
           <Input

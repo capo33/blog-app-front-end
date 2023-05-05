@@ -130,13 +130,18 @@ const BlogDetails = () => {
               key={tag}
               className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
             >
-              #{tag}
+              #{tag.toLowerCase().replace(/\s/g, " #")}
             </span>
           ))}
         </div>
 
         <div className='px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed'>
-          <p className='pb-6'>{data?.description}</p>
+          <p
+            className='pb-6'
+            dangerouslySetInnerHTML={{
+              __html: data?.description ? data?.description : "No Description",
+            }}
+          />
           <div className='flex justify-between items-center'>
             <div className='flex items-center'>
               <button

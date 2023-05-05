@@ -28,7 +28,9 @@ const UpdateProfile = () => {
   const token = auth?.user?.token;
 
   useEffect(() => {
-    dispatch(getUserProfile({ token, toast }));
+    if(token) {
+      dispatch(getUserProfile({ token, toast }));
+    }
   }, [dispatch, token]);
 
   useEffect(() => {

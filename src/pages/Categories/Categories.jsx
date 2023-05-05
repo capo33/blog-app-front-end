@@ -14,6 +14,10 @@ const Categories = () => {
     dispatch(getAllCategories());
   }, [dispatch]);
 
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
     <div className='container px-5 py-10 mx-auto'>
       <div className='bg-white rounded-lg shadow-lg p-4'>
@@ -39,7 +43,7 @@ const Categories = () => {
             <tbody>
               {data?.map((category) => (
                 <tr key={category._id}>
-                  <td className='border px-4 py-2'>{category.name}</td>
+                  <td className='border px-4 py-2'>{capitalize(category.name)}</td>
                   <td className='border px-4 py-2'>
                     <Link
                       to={`/category/${category.slug}`}

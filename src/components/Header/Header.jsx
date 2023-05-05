@@ -4,14 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
-import { BsBalloonFill } from "react-icons/bs";
-import { GiAquarium } from "react-icons/gi";
-import { RxCornerBottomLeft } from "react-icons/rx";
-import { RiUser3Line } from "react-icons/ri";
-import { RiUserSettingsLine } from "react-icons/ri";
-import { RiAdminLine } from "react-icons/ri";
-import { RiDashboardLine } from "react-icons/ri";
-import { TbBorderCorners } from "react-icons/tb";
 import { uperCaseFirstLetter } from "../../utils";
 import { logout } from "../../features/auth/authSlice";
 
@@ -39,12 +31,8 @@ const Header = () => {
             <div className='flex items-center justify-between'>
               {/* Logo */}
               <div className='flex items-center justify-between text-xl font-bold'>
-                <TbBorderCorners className='w-5 h-5' />
-                &nbsp;
                 <Link to='/'>
-                  <h1 className=''>
-                    Corner Blog
-                  </h1>
+                  <h1 className=''>Corner Blog</h1>
                 </Link>
               </div>
             </div>
@@ -71,7 +59,7 @@ const Header = () => {
             }`}
           >
             <ul className='items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0'>
-               {admin && (
+              {admin && (
                 <li className='hover:text-slate-500 hover:transition-all '>
                   <Link to='/categories'>Categories</Link>
                 </li>
@@ -85,7 +73,9 @@ const Header = () => {
 
                   <li>
                     <span className='font-bold'>
-                      {uperCaseFirstLetter(user?.user?.name)}
+                      {user?.user?.name
+                        ? uperCaseFirstLetter(user?.user?.name)
+                        : null}
                     </span>
                   </li>
                   <li className='hover:text-slate-500  hover:transition-all '>

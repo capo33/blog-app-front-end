@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import "react-quill/dist/quill.snow.css";
 
 import SVG from "../../components/SVG/SVG";
 import { getAllCategories } from "../../features/category/categorySlice";
 import { createNewBlog } from "../../features/blogs/blogSlice";
+import Editor from "../../components/Editor/Editor";
 
 const CreateBlog = () => {
   const [title, setTitle] = useState("");
@@ -14,11 +16,10 @@ const CreateBlog = () => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState([]);
-  // const [message, setMessage] = useState("");
 
   const auth = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.categories.categories);
- 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,7 +53,7 @@ const CreateBlog = () => {
         filename = crypto.randomUUID() + photo.name;
         formData.append("filename", filename);
         formData.append("image", photo);
- 
+
         await fetch(`http://localhost:5000/upload`, {
           method: "POST",
           body: formData,
@@ -69,7 +70,7 @@ const CreateBlog = () => {
         photo: filename,
       };
 
-      if (!title  || !description || !category) {
+      if (!title || !description || !category) {
         // setMessage("Please fill all the fields");
         return;
       }
@@ -103,6 +104,7 @@ const CreateBlog = () => {
                 name='title'
                 value={title}
                 id='name'
+                required
                 onChange={(e) => setTitle(e.target.value)}
                 className='bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full'
                 placeholder='Add a title'
@@ -116,16 +118,22 @@ const CreateBlog = () => {
               >
                 Description
               </label>
-              <textarea
+                 <Editor
+                  value={description}
+                  onChange={(newValue) => setDescription(newValue)}
+                />
+ 
+              {/* <textarea
                 name='description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 id='description'
+                required
                 cols={30}
                 rows={10}
                 className='bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full'
                 placeholder='Add a description'
-              />
+              /> */}
             </div>
 
             <div>
@@ -137,11 +145,12 @@ const CreateBlog = () => {
               </label>
               <select
                 name='category'
-                id='category'
-                placeholder='Select a category'
                 value={category}
+                id='category'
+                required
                 onChange={(e) => setCategory(e.target.value)}
                 className='bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full'
+                placeholder='Select a category'
               >
                 <option value=''>Select a category</option>
                 {categories?.map((category) => (
