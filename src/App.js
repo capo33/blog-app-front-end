@@ -1,22 +1,22 @@
-import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Header from "./components/Header/Header";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Auth/Login";
-import Register from "./pages/Auth/Register";
-import CreateBlog from "./pages/Blog/CreateBlog";
 import Profile from "./pages/Users/Profile";
-import BlogDetails from "./pages/Blog/BlogDetails";
+import Register from "./pages/Auth/Register";
+import Header from "./components/Header/Header";
+import CreateBlog from "./pages/Blog/CreateBlog";
 import UpdateBlog from "./pages/Blog/UpdateBlog";
-import UpdateProfile from "./pages/Users/UpdateProfile";
+import BlogDetails from "./pages/Blog/BlogDetails";
 import Categories from "./pages/Categories/Categories";
-import Category from "./components/Category/Category";
+import UpdateProfile from "./pages/Users/UpdateProfile";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 import CreateCategory from "./pages/Categories/CreateCategory";
 import UpdateCategory from "./pages/Categories/UpdateCategory";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
- 
+
+import "./App.css";
+
 function App() {
   const auth = useSelector((state) => state.auth);
   const token = auth?.user?.token;

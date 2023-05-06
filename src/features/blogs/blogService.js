@@ -66,7 +66,6 @@ const deleteBlog = async (id, token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log("response.data", response.data);
   return response.data;
 };
 

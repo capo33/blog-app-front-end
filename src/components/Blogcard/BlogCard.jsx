@@ -15,7 +15,7 @@ const BlogCard = ({
 }) => {
   return (
     <>
-      <div>
+      <div key={_id}>
         <div className='flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100'>
           <Link to={`/blog-details/${_id}`}>
             <div className='flex space-x-4'>

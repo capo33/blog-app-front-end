@@ -100,7 +100,6 @@ export const deleteBlog = createAsyncThunk(
   async ({ id, token, toast, navigate }, { rejectWithValue }) => {
     try {
       const response = await blogService.deleteBlog(id, token);
-      console.log("response.data", response.data);
       toast.success("Blog deleted successfully");
       navigate("/");
       return response;
@@ -123,7 +122,7 @@ export const likeBlog = createAsyncThunk(
   async ({ _id, token }, { rejectWithValue }) => {
     try {
       const response = await blogService.likeBlog(_id, token);
-       return response;
+      return response;
     } catch (error) {
       const message =
         (error.response &&
@@ -200,9 +199,14 @@ const blogSlice = createSlice({
     builder.addCase(updateBlog.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.blogs = state.blogs.map((blog) =>
-        blog._id === action.payload.blog._id ? action.payload.blog : blog
-      );
+      const { arg } = action.meta;
+      if (arg) {
+        state.blogs = state.blogs.map((blog) =>
+          blog?._id === arg?.id ? action.payload : blog
+        );
+      } else {
+        state.blogs = action.payload;
+      }
     });
     builder.addCase(updateBlog.rejected, (state, action) => {
       state.isLoading = false;
@@ -217,9 +221,13 @@ const blogSlice = createSlice({
     builder.addCase(deleteBlog.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      state.blogs = state.blogs.filter(
-        (blog) => blog._id !== action.payload.blog._id
-      );
+      const { arg } = action.meta;
+      if (arg) {
+        state.blogs = state.blogs.filter((blog) => blog?._id !== arg?.id);
+      }
+      // state.blogs = state.blogs.filter(
+      //   (blog) => blog?._id !== action.payload?.blog._id
+      // );
     });
     builder.addCase(deleteBlog.rejected, (state, action) => {
       state.isLoading = false;

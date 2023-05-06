@@ -24,7 +24,7 @@ const Section = () => {
         <div className=''>
           <div className='grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 xl:grid-cols-3'>
             {blogs?.length > 0 &&
-              blogs?.map((blog) => <BlogCard key={blog?._id} {...blog} />)}
+              blogs?.map((blog) => <BlogCard key={blog?._id} {...blog}  />)}
           </div>
         </div>
       </section>

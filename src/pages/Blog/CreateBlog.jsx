@@ -118,11 +118,11 @@ const CreateBlog = () => {
               >
                 Description
               </label>
-                 <Editor
-                  value={description}
-                  onChange={(newValue) => setDescription(newValue)}
-                />
- 
+              <Editor
+                value={description}
+                onChange={(newValue) => setDescription(newValue)}
+              />
+
               {/* <textarea
                 name='description'
                 value={description}
@@ -174,7 +174,7 @@ const CreateBlog = () => {
                 onChange={(e) => setTags(e.target.value)}
                 id='tags'
                 className='bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full'
-                placeholder='Add tags'
+                placeholder='Add tags separated by space'
               />
             </div>
             {/* Upload image */}
@@ -199,16 +199,16 @@ const CreateBlog = () => {
                 {photo ? photo.name : "Upload Image"}
               </label>
             </div>
-            {/* {photo && (
-                  <div className='text-center'>
-                    <img
-                      src={URL.createObjectURL(photo)} // we use URL.createObjectURL to create a temporary URL for the image
-                      alt={photo.name}
-                      height='200px'
-                      className='img img-responsive img-thumbnail'
-                    />
-                  </div>
-                )} */}
+            {photo && (
+              <div className='text-center'>
+                <img
+                  src={URL.createObjectURL(photo)} // we use URL.createObjectURL to create a temporary URL for the image
+                  alt={photo.name}
+                  height='200px'
+                  className='mt-4 rounded object-cover w-48'
+                />
+              </div>
+            )}
           </div>
 
           <div className='space-x-4 mt-8'>
