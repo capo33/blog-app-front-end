@@ -14,6 +14,7 @@ import Like from "../../components/Like";
 import Modal from "../../components/Modal/Modal";
 import { formatDate } from "../../utils";
 import { getAllCategories } from "../../features/category/categorySlice";
+import BackLink from "../../components/BackLink/BackLink";
 
 const BlogDetails = () => {
   const [showModal, setShowModal] = useState(false);
@@ -74,6 +75,8 @@ const BlogDetails = () => {
             />
           </>
         ) : null}
+
+        <BackLink link='/' name='Home' />
         <div
           className='mb-4 md:mb-0 w-full max-w-screen-md mx-auto relative'
           style={{ height: "24em" }}

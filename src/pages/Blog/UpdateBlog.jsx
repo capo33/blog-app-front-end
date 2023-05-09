@@ -7,6 +7,7 @@ import SVG from "../../components/SVG/SVG";
 import { getAllCategories } from "../../features/category/categorySlice";
 import { getSingleBlog, updateBlog } from "../../features/blogs/blogSlice";
 import Editor from "../../components/Editor/Editor";
+import BackLink from "../../components/BackLink/BackLink";
 
 const UpdateBlog = () => {
   const [tags, setTags] = useState([]);
@@ -87,6 +88,9 @@ const UpdateBlog = () => {
 
   return (
     <div className='p-5 mt-10'>
+    {/* back to blog details */}
+      <BackLink link={`/blog-details/${id}`} name="Blog Details" />
+
       <div className='p-8 rounded border border-gray-200'>
         <h1 className='font-medium text-3xl'>New Blog</h1>
         <p className='text-gray-600 mt-6'>

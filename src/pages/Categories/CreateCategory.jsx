@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { createNewCategory } from "../../features/category/categorySlice";
+import BackLink from "../../components/BackLink/BackLink";
 
 const CreateCategory = () => {
   const [name, setName] = useState("");
@@ -26,6 +28,8 @@ const CreateCategory = () => {
 
   return (
     <div className='p-5 mt-10 max-w-md'>
+      <BackLink link='/categories' name='Categories' />
+
       <div className='p-8 rounded border border-gray-200'>
         <h1 className='font-medium text-3xl'>Create a new category</h1>
         <form onSubmit={handleSubmit}>

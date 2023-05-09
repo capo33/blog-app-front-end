@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getAllCategories } from "../../features/category/categorySlice";
 import { AiFillEdit } from "react-icons/ai";
-
+import BackLink from "../../components/BackLink/BackLink";
+ 
 const Categories = () => {
   const { data } = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();
@@ -18,9 +19,11 @@ const Categories = () => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
+ 
   return (
     <div className='container px-5 py-10 mx-auto'>
-      <div className='bg-white rounded-lg shadow-lg p-4'>
+    <BackLink link="/" name="Home" />
+       <div className='bg-white rounded-lg shadow-lg p-4'>
         <Link
           to={"/create-category"}
           className='inline-flex items-center bg-blue-500 p-2 rounded text-white hover:bg-blue-800 focus:outline-none'

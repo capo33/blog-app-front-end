@@ -8,6 +8,7 @@ import {
   getUserProfile,
   updateUserProfile,
 } from "../../features/auth/authSlice";
+import BackLink from "../../components/BackLink/BackLink";
 
 const UpdateProfile = () => {
   const [name, setName] = useState(null);
@@ -97,6 +98,9 @@ const UpdateProfile = () => {
 
   return (
     <div className='p-5 mt-10'>
+    {/* back to profile */}
+    <BackLink link='/profile' name='Profile' />
+
       <div className='p-8 rounded border border-gray-200'>
         <h1 className='font-medium text-3xl'>Update your profile</h1>
         <form onSubmit={handleSubmit}>
