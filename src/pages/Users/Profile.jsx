@@ -11,14 +11,22 @@ import {
 } from "../../features/auth/authSlice";
 import { formatDate } from "../../utils";
 import Modal from "../../components/Modal/Modal";
+import { getAllBlogs } from "../../features/blogs/blogSlice";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState(false);
 
   const auth = useSelector((state) => state.auth);
+  const { blogs } = useSelector((state) => state.blogs);
+
+  const ownBlog = blogs?.filter(
+    (blog) => blog?.author?._id === auth?.user?.user?._id
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userId = auth?.user?.user?._id;
 
   const data = {
     name: auth?.user?.user?.name,
@@ -38,6 +46,10 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    dispatch(getAllBlogs());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (data?.token) {
       dispatch(getUserProfile({ token: data?.token, toast }));
     }
@@ -51,7 +63,6 @@ const Profile = () => {
   const handleConfirmDelete = () => {
     setShowModal((prev) => !prev);
   };
-
   return (
     <div className='container mx-auto my-5 p-5'>
       {showModal ? (
@@ -73,7 +84,7 @@ const Profile = () => {
               }
               className='shadow-xl rounded-full h-auto align-middle border-none max-w-40-px'
             />
-             <div className=' py-5 '>
+            <div className=' py-5 '>
               <div className='flex justify-center items-center text-center'>
                 <div className='flex items-center'>
                   <Link
@@ -95,9 +106,9 @@ const Profile = () => {
             </div>
             <h1 className='text-gray-900 font-bold text-xl leading-8 my-1'>
               {data?.name}
-              {data?.blogs?.length > 5 ? (
+              {ownBlog.length > 5 ? (
                 <span className='text-green-500'> (expert)</span>
-              ) : data?.blogs?.length > 0 ? (
+              ) : ownBlog.length > 0 ? (
                 <span className='text-blue-500'> (author)</span>
               ) : (
                 <span className='text-gray-500'> (newbie)</span>
@@ -115,7 +126,7 @@ const Profile = () => {
             <ul className='bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm'>
               <li className='flex items-center py-3'>
                 <span>Status</span>
-                {data?.blogs?.length > 0 ? (
+                {ownBlog.length > 0 ? (
                   <span className='ml-auto'>
                     <span className='bg-green-600 py-1 px-2 rounded text-white text-sm'>
                       Active
@@ -135,54 +146,8 @@ const Profile = () => {
               </li>
             </ul>
           </div>
-          <div className='my-4'></div>
-       
-
-
-
-
-
-
         </div>
         <div className='w-full md:w-9/12 mx-2 h-64'>
-          <div className='px-6'>
-            {/* <div className='flex flex-wrap justify-center'>
-              <div className='w-full lg:w-3/12 px-4 lg:order-2 flex justify-center'>
-                <div className='relative'>
-                  <img
-                    alt={data?.name}
-                    src={
-                      data?.avatar
-                        ? `http://localhost:5000/uploads/${data?.avatar}`
-                        : "https://t4.ftcdn.net/jpg/03/32/59/65/240_F_332596535_lAdLhf6KzbW6PWXBWeIFTovTii1drkbT.jpg"
-                    }
-                    className='shadow-xl rounded-full h-auto align-middle border-none max-w-40-px'
-                  />
-                </div>
-              </div>
-            </div> */}
-            {/* <div className=' py-5 '>
-              <div className='flex justify-center items-center text-center'>
-                <div className='flex items-center'>
-                  <Link
-                    to={`/update-profile/${data?.id}`}
-                    className='flex items-center text-gray-700 hover:text-gray-900 focus:outline-none'
-                  >
-                    <AiFillEdit className='h-5 w-5 mr-1' />
-                    <span className='text-sm'>Edit</span>
-                  </Link>
-                  <button
-                    onClick={handleConfirmDelete}
-                    className='flex items-center text-gray-700 hover:text-gray-900 ml-6 focus:outline-none'
-                  >
-                    <AiFillDelete className='h-5 w-5 mr-1' />
-                    <span className='text-sm'>Delete</span>
-                  </button>
-                </div>
-              </div>
-            </div> */}
-           </div>
-
           <div className='bg-white p-3 shadow-sm rounded-sm'>
             <div className='flex items-center space-x-2 font-semibold text-gray-900 leading-8'>
               <span clas='text-green-500'>
@@ -217,7 +182,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className='grid grid-cols-2'>
-                  <div className='px-4 py-2 font-semibold'>Phone No.</div>
+                  <div className='px-4 py-2 font-semibold'>Phone</div>
                   <div className='px-4 py-2'>
                     {data?.phone ? data?.phone : "Not Available Yet"}
                   </div>
@@ -229,7 +194,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className='grid grid-cols-2'>
-                  <div className='px-4 py-2 font-semibold'>Email.</div>
+                  <div className='px-4 py-2 font-semibold'>Email</div>
                   <div className='px-4 py-2'>
                     {data?.email ? data?.email : "Not Available Yet"}
                   </div>
@@ -243,9 +208,7 @@ const Profile = () => {
                 <div className='grid grid-cols-2'>
                   <div className='px-4 py-2 font-semibold'>Written blogs</div>
                   <div className='px-4 py-2'>
-                    {data?.blogs?.length > 0
-                      ? data?.blogs?.length
-                      : "Not Available Yet"}
+                    {ownBlog.length > 0 ? ownBlog.length : "Not Available Yet"}
                   </div>
                 </div>
                 <div className='grid grid-cols-2'>
@@ -274,68 +237,41 @@ const Profile = () => {
               </div>
 
               <div className='bg-white p-3 hover:shadow'>
-            <div className='flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8'>
-              <span className='text-green-500'>
-                <svg
-                  className='h-5 fill-current'
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
-                  />
-                </svg>
-              </span>
-              <span>Selected Blogs</span>
-            </div>
-            {/* <div className='grid grid-cols-3'>
-              <div className='text-center my-2'>
-                <img
-                  className='h-16 w-16 rounded-full mx-auto'
-                  src='https://cdn.australianageingagenda.com.au/wp-content/uploads/2015/06/28085920/Phil-Beckett-2-e1435107243361.jpg'
-                  alt=''
-                />
-                <a href='/' className='text-main-color'>
-                  Kojstantin
-                </a>
+                <div className='flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8'>
+                  <span className='text-green-500'>
+                    <svg
+                      className='h-5 fill-current'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke='currentColor'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'
+                      />
+                    </svg>
+                  </span>
+                  <span>Own Blogs</span>
+                </div>
+                <div className='grid grid-cols-6'>
+                  {ownBlog.length > 0
+                    ? ownBlog?.map((blog, index) => (
+                        <div className='text-center my-2'>
+                          <img
+                            key={index}
+                            className='h-16 w-16 rounded-full mx-auto'
+                            src={`http://localhost:5000/uploads/${blog?.photo}`}
+                            alt=''
+                          />
+                          {blog?.title}
+                        </div>
+                      ))
+                    : "You have not written any blog yet."}
+                </div>
               </div>
-              <div className='text-center my-2'>
-                <img
-                  className='h-16 w-16 rounded-full mx-auto'
-                  src='https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4'
-                  alt=''
-                />
-                <a href='/' className='text-main-color'>
-                  James
-                </a>
-              </div>
-              <div className='text-center my-2'>
-                <img
-                  className='h-16 w-16 rounded-full mx-auto'
-                  src='https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg'
-                  alt=''
-                />
-                <a href='/' className='text-main-color'>
-                  Natie
-                </a>
-              </div>
-              <div className='text-center my-2'>
-                <img
-                  className='h-16 w-16 rounded-full mx-auto'
-                  src='https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/f04b52da-12f2-449f-b90c-5e4d5e2b1469_361x361.png'
-                  alt=''
-                />
-                <a href='/' className='text-main-color'>
-                  Casey
-                </a>
-              </div>
-            </div> */}
-          </div>
             </div>
           </div>
         </div>
