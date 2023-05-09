@@ -61,7 +61,8 @@ const UpdateProfile = () => {
       formData.append("filename", filename);
       avatar && formData.append("image", avatar);
  
-      await fetch(`http://localhost:5000/upload`, {
+      // await fetch(`http://localhost:5000/upload`, {
+      await fetch(`https://corner-blog-api.onrender.com/upload`, {
         method: "POST",
         body: formData,
       });
@@ -260,7 +261,8 @@ const UpdateProfile = () => {
               </div>
             ) : (
               <img
-                src={`http://localhost:5000/uploads/${auth?.user?.user?.avatar}`}
+                // src={`http://localhost:5000/uploads/${auth?.user?.user?.avatar}`}
+                src={`https://corner-blog-api.onrender.com/uploads/${auth?.user?.user?.avatar}`}
                 alt='Upload '
                 height='200px'
                 className='img img-responsive img-thumbnail'

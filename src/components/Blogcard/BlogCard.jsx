@@ -23,7 +23,8 @@ const BlogCard = ({
                 alt='avatar'
                 src={
                   author?.avatar
-                    ? `http://localhost:5000/uploads/${author?.avatar}`
+                    // ? `http://localhost:5000/uploads/${author?.avatar}`
+                    ? `https://corner-blog-api.onrender.com/uploads/${author?.avatar}`
                     : "https://t4.ftcdn.net/jpg/03/32/59/65/240_F_332596535_lAdLhf6KzbW6PWXBWeIFTovTii1drkbT.jpg"
                 }
                 className='object-cover w-12 h-12 mb-2 rounded-full shadow dark:bg-gray-500'
@@ -44,7 +45,8 @@ const BlogCard = ({
               <img
                 src={
                   photo
-                    ? `http://localhost:5000/uploads/${photo} `
+                    // ? `http://localhost:5000/uploads/${photo} `
+                    ? `https://corner-blog-api.onrender.com/uploads/${photo} `
                     : "https://t4.ftcdn.net/jpg/04/99/93/31/360_F_499933117_ZAUBfv3P1HEOsZDrnkbNCt4jc3AodArl.jpg"
                 }
                 alt='cards'

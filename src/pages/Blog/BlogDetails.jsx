@@ -43,6 +43,7 @@ const BlogDetails = () => {
     tags: blog?.tags,
   };
 
+  console.log(blog?.photo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -92,7 +93,8 @@ const BlogDetails = () => {
             src={
               blog?.photo?.includes("undefined")
                 ? "https://t4.ftcdn.net/jpg/04/99/93/31/360_F_499933117_ZAUBfv3P1HEOsZDrnkbNCt4jc3AodArl.jpg"
-                : `http://localhost:5000/uploads/${blog?.photo}`
+                // : `http://localhost:5000/uploads/${blog?.photo}`
+                : `https://corner-blog-api.onrender.com/uploads/${blog?.photo}`
             }
             className='absolute left-0 top-0 w-full h-full z-0 object-cover'
             alt={blog?.title}
@@ -109,7 +111,8 @@ const BlogDetails = () => {
               <img
                 src={
                   data?.avatar
-                    ? `http://localhost:5000/uploads/${data?.avatar}`
+                    // ? `http://localhost:5000/uploads/${data?.avatar}`
+                    ? `https://corner-blog-api.onrender.com/uploads/${data?.avatar}`
                     : "https://t4.ftcdn.net/jpg/03/32/59/65/240_F_332596535_lAdLhf6KzbW6PWXBWeIFTovTii1drkbT.jpg"
                 }
                 className='h-10 w-10 rounded-full mr-2 object-cover'

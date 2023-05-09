@@ -58,7 +58,8 @@ const UpdateBlog = () => {
       formData.append("filename", filename);
       formData.append("image", photo);
 
-      await fetch(`http://localhost:5000/upload`, {
+      // await fetch(`http://localhost:5000/upload`, {
+      await fetch(`https://corner-blog-api.onrender.com/upload`, {
         method: "POST",
         body: formData,
       });

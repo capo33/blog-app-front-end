@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import { HiArrowNarrowLeft } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { createNewCategory } from "../../features/category/categorySlice";
 import BackLink from "../../components/BackLink/BackLink";
+import { createNewCategory } from "../../features/category/categorySlice";
 
 const CreateCategory = () => {
   const [name, setName] = useState("");

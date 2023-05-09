@@ -27,8 +27,6 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userId = auth?.user?.user?._id;
-
   const data = {
     name: auth?.user?.user?.name,
     email: auth?.user?.user?.email,
@@ -83,7 +81,8 @@ const Profile = () => {
                 alt={data?.name}
                 src={
                   data?.avatar
-                    ? `http://localhost:5000/uploads/${data?.avatar}`
+                    ? // ? `http://localhost:5000/uploads/${data?.avatar}`
+                      `https://corner-blog-api.onrender.com/uploads/${data?.avatar}`
                     : "https://t4.ftcdn.net/jpg/03/32/59/65/240_F_332596535_lAdLhf6KzbW6PWXBWeIFTovTii1drkbT.jpg"
                 }
                 className='shadow-xl rounded-full h-auto align-middle border-none max-w-40-px'
@@ -223,9 +222,9 @@ const Profile = () => {
                     <div className='px-4 py-2 font-semibold'>Interests</div>
                     <div className='px-4 py-2'>
                       {data?.interests?.length > 0
-                        ? data?.interests?.map((interest) => (
+                        ? data?.interests?.map((interest, index) => (
                             <span
-                              key={interest}
+                              key={index}
                               className='px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-medium mr-2'
                             >
                               {interest}
@@ -267,11 +266,11 @@ const Profile = () => {
                   <div className='grid grid-cols-6'>
                     {ownBlog.length > 0
                       ? ownBlog?.map((blog, index) => (
-                          <div className='text-center my-2'>
+                          <div className='text-center my-2' key={index}>
                             <img
-                              key={index}
                               className='h-16 w-16 rounded-full mx-auto'
-                              src={`http://localhost:5000/uploads/${blog?.photo}`}
+                              // src={`http://localhost:5000/uploads/${blog?.photo}`}
+                              src={`https://corner-blog-api.onrender.com/uploads/${blog?.photo}`}
                               alt=''
                             />
                             {blog?.title}

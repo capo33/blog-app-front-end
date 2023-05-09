@@ -59,6 +59,9 @@ const Header = () => {
             }`}
           >
             <ul className='items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0'>
+              <li className='hover:text-slate-500  hover:transition-all '>
+                <Link to='/'>Home</Link>
+              </li>
               {admin && (
                 <li className='hover:text-slate-500 hover:transition-all '>
                   <Link to='/categories'>Categories</Link>
@@ -83,7 +86,8 @@ const Header = () => {
                       <img
                         src={
                           avatar
-                            ? `http://localhost:5000/uploads/${avatar}`
+                            ? // ? `http://localhost:5000/uploads/${avatar}`
+                              `https://corner-blog-api.onrender.com/uploads/${avatar}`
                             : "https://t4.ftcdn.net/jpg/03/32/59/65/240_F_332596535_lAdLhf6KzbW6PWXBWeIFTovTii1drkbT.jpg"
                         }
                         alt='avatar'
@@ -91,6 +95,7 @@ const Header = () => {
                       />
                     </Link>
                   </li>
+
                   <div className='bg-orange-500 inline-flex     rounded  '>
                     <div className='py-1.5 px-4 text-white  hover:bg-orange-700 rounded cursor-pointer flex justify-between'>
                       <Link to='/login' onClick={handleLogout}>
